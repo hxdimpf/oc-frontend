@@ -43,7 +43,7 @@
         .footer a { color: var(--oc-footer-link-color); }
     </style>
     {% endblock %}
-    <script>window.OCI18n = {};</script>
+    <script>window.OCI18n = {{ i18n_json | safe }};</script>
     {% block i18n %}{% endblock %}
 </head>
 

@@ -4,7 +4,7 @@ Shared JavaScript modules, CSS, and vendor libraries for OC4 (Symfony) and OC5 (
 
 ## Usage
 
-Add as a git submodule:
+Add as a git submodule at `public/_frontend/`:
 ```
 git submodule add https://github.com/hxdimpf/oc-frontend.git public/_frontend
 ```
@@ -16,6 +16,6 @@ Then reference in templates:
 ```
 
 ## Structure
-- `public/js/` — ES modules (loader, cache, map, i18n, etc.)
-- `public/css/` — Stylesheets
-- `public/vendor/` — Third-party libraries (Bootstrap, Tabulator, Leaflet)
+- `js/` — ES modules (loader, cache, map, i18n, etc.)
+- `css/` — Stylesheets
+- `vendor/` — Third-party libraries (Bootstrap, Tabulator, Leaflet)

@@ -82,10 +82,19 @@
 
     <script src="/_frontend/vendor/bootstrap/bootstrap.bundle.min.js"></script>
     <script>
-        // Fetch stats
-        fetch('/api/caches/search?q=&limit=0').then(r => r.json()).then(d => {
-            document.getElementById('cacheCount').textContent = d.total || '—';
-        }).catch(() => {});
+        // Fetch stats from API
+        (async () => {
+            try {
+                const r = await fetch('/api/caches/search?limit=1');
+                const d = await r.json();
+                document.getElementById('cacheCount').textContent = d.total?.toLocaleString() || '?';
+            } catch(e) {}
+            try {
+                const r = await fetch('/api/users/search?q=');
+                const d = await r.json();
+                document.getElementById('userCount').textContent = d.total?.toLocaleString() || '?';
+            } catch(e) {}
+        })();
     </script>
 </body>
 </html>

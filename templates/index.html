@@ -14,11 +14,78 @@
     <title>OpenCaching</title>
     <link rel="stylesheet" href="/_frontend/vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/_frontend/css/oc-style.css">
+    <style>
+        .hero { text-align: center; padding: 40px 20px; background: var(--oc-bg-surface); }
+        .hero h1 { font-size: 2em; margin-bottom: 10px; }
+        .hero p { color: var(--oc-text-secondary); max-width: 600px; margin: 0 auto 20px; }
+        .search-form { max-width: 500px; margin: 20px auto; }
+        .stats { display: flex; justify-content: center; gap: 40px; padding: 30px; flex-wrap: wrap; }
+        .stat-item { text-align: center; }
+        .stat-num { font-size: 1.8em; font-weight: bold; color: var(--oc-link-color); }
+        .stat-label { font-size: 0.9em; color: var(--oc-text-secondary); }
+        .quick-links { display: flex; justify-content: center; gap: 15px; padding: 20px; flex-wrap: wrap; }
+    </style>
     <script>window.OCI18n = {};</script>
 </head>
 <body data-page="">
-    <div id="app"></div>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: var(--oc-bg-navbar);">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">OpenCaching</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/livemap">Live Map</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/caches">Caches</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/user/search">Users</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="content">
+        <div class="hero">
+            <h1>OpenCaching</h1>
+            <p>The open geocaching network — free, community-driven, no tracking.</p>
+            <form class="search-form" action="/caches">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search caches...">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+        <div class="quick-links">
+            <a href="/livemap" class="btn btn-outline-primary">Live Map</a>
+            <a href="/caches" class="btn btn-outline-primary">Search Caches</a>
+            <a href="/user/search" class="btn btn-outline-primary">Find Users</a>
+            <a href="/cache/new" class="btn btn-outline-primary">Hide a Cache</a>
+        </div>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-num" id="cacheCount">...</div>
+                <div class="stat-label">Active Caches</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" id="userCount">...</div>
+                <div class="stat-label">Members</div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align:center; padding:20px; background:var(--oc-bg-navbar); color:var(--oc-text-inverse);">
+        &copy; opencaching.de
+    </footer>
+
     <script src="/_frontend/vendor/bootstrap/bootstrap.bundle.min.js"></script>
-    <script type="module" src="/_frontend/js/loader.js"></script>
+    <script>
+        // Fetch stats
+        fetch('/api/caches/search?q=&limit=0').then(r => r.json()).then(d => {
+            document.getElementById('cacheCount').textContent = d.total || '—';
+        }).catch(() => {});
+    </script>
 </body>
 </html>

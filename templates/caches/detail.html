@@ -20,11 +20,14 @@
     <script>window.OCI18n = {};</script>
 </head>
 <body data-page="cache" data-map-js="true">
-    <div id="explore-container" data-code="__WP__"></div>
+    <div id="explore-container"></div>
     <div id="mapRoot" style="display:none"></div>
     <script>
         window.uniCacheWP = [];
         window.defaultZoom = 14;
+        // Extract waypoint from URL: /cache/OC17A7F → OC17A7F
+        var m = location.pathname.match(/\/cache\/([A-Za-z0-9]+)/);
+        if (m) document.getElementById('explore-container').dataset.code = m[1];
     </script>
     <script src="/_frontend/vendor/bootstrap/bootstrap.bundle.min.js"></script>
     <script type="module" src="/_frontend/js/loader.js"></script>

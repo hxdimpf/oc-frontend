@@ -135,15 +135,15 @@
     <script src="/_frontend/vendor/bootstrap/bootstrap.bundle.min.js"></script>
     <script type="module" src="/_frontend/js/loader.js"></script>
     <script>
-        // Apply translations after page load
-        document.addEventListener('DOMContentLoaded', () => {
+        // Apply translations immediately (script is at end of body)
+        (function translate() {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.dataset.i18n;
                 if (window.OCI18n && window.OCI18n[key]) {
                     el.textContent = window.OCI18n[key];
                 }
             });
-        });
+        })();
         // Hover dropdowns — use Bootstrap 5 data attributes
         document.querySelectorAll('.dropdown').forEach(d => {
             d.addEventListener('mouseenter', () => {

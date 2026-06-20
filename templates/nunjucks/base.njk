@@ -61,15 +61,15 @@
                     {% block navbar_nav %}
                         {% if user %}
                             <ul class="navbar-nav">
-                                <li class="nav-item"><a class="nav-link" href="/livemap">Livemap</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/livemap" data-i18n="Live Map">Livemap</a></li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Caches</a>
+                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-i18n="Caches">Caches</a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="/caches">Search</a></li>
-                                        <li><a class="dropdown-item" href="/cache/new">Hide</a></li>
+                                        <li><a class="dropdown-item" href="/caches" data-i18n="Search caches">Search</a></li>
+                                        <li><a class="dropdown-item" href="/cache/new" data-i18n="Hide a cache">Hide</a></li>
                                     </ul>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="/user">Users</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/user" data-i18n="Users">Users</a></li>
                             </ul>
                         {% endif %}
                     {% endblock %}
@@ -135,6 +135,15 @@
     <script src="/_frontend/vendor/bootstrap/bootstrap.bundle.min.js"></script>
     <script type="module" src="/_frontend/js/loader.js"></script>
     <script>
+        // Apply translations after page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (window.OCI18n && window.OCI18n[key]) {
+                    el.textContent = window.OCI18n[key];
+                }
+            });
+        });
         // Hover dropdowns — use Bootstrap 5 data attributes
         document.querySelectorAll('.dropdown').forEach(d => {
             d.addEventListener('mouseenter', () => {

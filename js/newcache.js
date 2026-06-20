@@ -188,7 +188,7 @@ export function init() {
             await new Promise((resolve, reject) => {
                 const link = document.createElement('link');
                 link.rel = 'stylesheet';
-                link.href = '/vendor/leaflet/leaflet.css';
+                link.href = '/_frontend/vendor/leaflet/leaflet.css';
                 link.onload = resolve;
                 link.onerror = reject;
                 document.head.appendChild(link);
@@ -197,7 +197,7 @@ export function init() {
         // Load JS
         await new Promise((resolve, reject) => {
             const script = document.createElement('script');
-            script.src = '/vendor/leaflet/leaflet.js';
+            script.src = '/_frontend/vendor/leaflet/leaflet.js';
             script.onload = resolve;
             script.onerror = reject;
             document.head.appendChild(script);

@@ -38,17 +38,17 @@ async function loadJs(src) {
 
 async function loadMap() {
     await Promise.all([
-        loadCss('/vendor/leaflet/leaflet.css'),
-        loadCss('/vendor/leaflet-draw/leaflet.draw.css'),
-        loadCss('/vendor/leaflet.markercluster/MarkerCluster.css'),
-        loadCss('/vendor/leaflet.markercluster/MarkerCluster.Default.css'),
-        loadCss('/css/map.css'),
+        loadCss('/_frontend/vendor/leaflet/leaflet.css'),
+        loadCss('/_frontend/vendor/leaflet-draw/leaflet.draw.css'),
+        loadCss('/_frontend/vendor/leaflet.markercluster/MarkerCluster.css'),
+        loadCss('/_frontend/vendor/leaflet.markercluster/MarkerCluster.Default.css'),
+        loadCss('/_frontend/css/map.css'),
     ]);
 
-    await loadJs('/vendor/leaflet/leaflet.js');
+    await loadJs('/_frontend/vendor/leaflet/leaflet.js');
     await Promise.all([
-        loadJs('/vendor/leaflet-draw/leaflet.draw.js'),
-        loadJs('/vendor/leaflet.markercluster/leaflet.markercluster.js'),
+        loadJs('/_frontend/vendor/leaflet-draw/leaflet.draw.js'),
+        loadJs('/_frontend/vendor/leaflet.markercluster/leaflet.markercluster.js'),
     ]);
 
     await import('./map.js');

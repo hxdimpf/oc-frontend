@@ -22,7 +22,7 @@
  *   - If user has no own log: directly in mode='newLog'; checkbox hidden.
  ***************************************************************************/
 
-import { TabulatorFull as Tabulator } from '/vendor/tabulator/tabulator_esm.min.js';
+import { TabulatorFull as Tabulator } from '/_frontend/vendor/tabulator/tabulator_esm.min.js';
 import { coords2Dm, coords2LatLon } from './coords.js';
 import { initPageMap } from './pageMap.js';
 import { apiFetch } from './helpers.js';

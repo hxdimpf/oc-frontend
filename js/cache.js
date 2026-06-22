@@ -433,8 +433,8 @@ function createWPTable() {
     },
     columnDefaults: { resizable: false },
     columns: [
-      { title: '',            field: 'icon',        headerSort: false, width: 28,
-        formatter: cell => cell.getValue() ? `<img src="${cell.getValue()}" width="20" height="20" style="vertical-align:middle">` : '' },
+      { title: '',            field: 'icon',        headerSort: false, width: 40,
+        formatter: cell => cell.getValue() ? `<img src="${cell.getValue()}" width="28" height="28" style="vertical-align:middle" title="${cell.getRow().getData().typeName || ''}">` : '' },
       { title: t('Coordinates'), field: 'myCoords',    headerSort: false, width: 170 },
       { title: t('Prefix'),      field: 'prefix',      headerSort: true,  width: 60 },
       { title: t('Name'),        field: 'name',        headerSort: false, width: 190 },

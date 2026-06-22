@@ -238,12 +238,18 @@ export function init() {
             if (!pickerLeafletMap) return;
             pickerLeafletMap.invalidateSize();
 
-            // Parse current input value for initial position
+            // Parse current input value or fall back to main cache coords
             const raw = inputEl.value.trim();
             let lat = 51.16, lon = 10.45;
             if (raw) {
                 const c = parseCoordsInput(raw);
                 if (c) { lat = c.lat; lon = c.lon; }
+            } else {
+                const mainInput = document.querySelector('input[name="coords"]');
+                if (mainInput) {
+                    const mc = parseCoordsInput(mainInput.value.trim());
+                    if (mc) { lat = mc.lat; lon = mc.lon; }
+                }
             }
             pickerMarker.setLatLng([lat, lon]);
             pickerLeafletMap.setView([lat, lon], 14);

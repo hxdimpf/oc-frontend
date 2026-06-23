@@ -4,9 +4,11 @@
  ***************************************************************************/
 
 /**
- * Shared coordinate conversion utilities (ESM module).
+ * Shared coordinate conversion utilities — pure functions, no DOM, no Node APIs.
+ * Importable from browser (ESM) AND Node.js backend. Single source of truth.
  *
- * Used by coord_input.js (unified coordinate input) and map.
+ * Used by: cache.js, newcache.js, mapRouting.js (frontend)
+ *           data/shared.js, data/caches.js, routes/caches.js (backend)
  */
 
 /** Zero-pad an integer to the given width. */
@@ -52,27 +54,18 @@ export function coords2Dm(lat, lon) {
          `${lonOut}${pad(lonDeg, 3)} ${pad(lonMinInt, 2)}.${pad(1000 * lonMinFrac, 3)}`;
 }
 
-/** Parse a "N49 01.012 E008 22.444" string back to decimal {latitude, longitude}. */
+/**
+ * Parse a DM coordinate string back to decimal {lat, lon}.
+ * Handles both "N52 20.171 E009 36.865" and "N 52 20.171 E 009 36.865".
+ * Returns null if the string cannot be parsed.
+ */
 export function coords2LatLon(coords) {
-  const parts = coords.split(' ');
-
-  const ns = parts[0][0];
-  const ew = parts[2][0];
-
-  const ndeg = parts[0].substr(1, parts[0].length - 1);
-  const nmin = parts[1][0] + parts[1][1];
-
-  const edeg = parts[2].substr(1, parts[2].length - 1);
-  const emin = parts[3][0] + parts[3][1];
-
-  const nfrac = parts[1][3] + parts[1][4] + parts[1][5];
-  const efrac = parts[3][3] + parts[3][4] + parts[3][5];
-
-  const latSign = (ns == 'N') ? 1 : -1;
-  const lonSign = (ew == 'E') ? 1 : -1;
-
-  const latitude  = ((Number(ndeg) + Number(nmin) / 60 + Number(nfrac) / 60000) * latSign).toFixed(14);
-  const longitude = ((Number(edeg) + Number(emin) / 60 + Number(efrac) / 60000) * lonSign).toFixed(14);
-
-  return { latitude, longitude };
+  if (!coords) return null;
+  const m = coords.match(/^([NS])\s*(\d+)\s+(\d+\.\d+)\s+([EW])\s*(\d+)\s+(\d+\.\d+)$/);
+  if (!m) return null;
+  let lat = parseInt(m[2]) + parseFloat(m[3]) / 60;
+  let lon = parseInt(m[5]) + parseFloat(m[6]) / 60;
+  if (m[1] === 'S') lat = -lat;
+  if (m[4] === 'W') lon = -lon;
+  return { lat, lon };
 }

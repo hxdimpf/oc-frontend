@@ -1,4 +1,4 @@
-import { coords2Dm } from './coords.js';
+import { coords2Dm } from '../shared/coords.js';
 
 export function init() {
     const attribsField = document.getElementById('cache_attribs');

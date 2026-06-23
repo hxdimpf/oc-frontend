@@ -23,7 +23,7 @@
  ***************************************************************************/
 
 import { TabulatorFull as Tabulator } from '/_frontend/vendor/tabulator/tabulator_esm.min.js';
-import { coords2Dm, coords2LatLon } from './coords.js';
+import { coords2Dm, coords2LatLon } from '../shared/coords.js';
 import { initPageMap } from './pageMap.js';
 import { apiFetch } from './helpers.js';
 import { t } from './i18n.js';
